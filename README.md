@@ -1,1 +1,3 @@
-# squidpay_frontend
+# Squidpay Singapore
+
+COMING SOON!
