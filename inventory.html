@@ -19,11 +19,25 @@
     Item update: <input id="iItem" placeholder="E.g. 1,5,6,12,13" /><br />
     Count update:
     <input id="iCount" placeholder="E.g. 500,100,70,10000,750" /><br />
-    <button>Update</button>
+    <button onclick="update()">Update</button>
     <hr />
     Display of item (with attachment to json)
+    <div id="items"></div>
   </body>
   <script>
+    list = {
+      1: 'Starbucks',
+      2: 'Hilton Hotel',
+      3: 'Subway',
+      4: 'MBS',
+      5: 'RWS',
+      6: 'Cartier',
+      7: 'Arteastiq',
+    };
+    CHAIN = 4;
+    CS = '';
+    WB =
+      'https://eth-rinkeby.alchemyapi.io/v2/xneL9EV87zUlVocEVcyDT5tqp4LZE0Fy';
     async function connect() {
       await load(
         [
@@ -44,7 +58,24 @@
         ],
         '0x151C196e89F479E6542388c0e7a43E036e8c384f'
       );
-      count = await contract.methods.display().call();
+      refreshItems();
+    }
+    async function refreshItems() {
+      $('#items').html('');
+      count = await contracta.methods.display().call();
+      for (i = 1; i < count.length; i++)
+        $('#items').append(`${list[i]} (${i}): ${count[i]}<br>`);
+    }
+    async function update() {
+      $('button').html('Updating...');
+      await contract.methods
+        .update(
+          JSON.parse('[' + $('#iItem').val() + ']'),
+          JSON.parse('[' + $('#iCount').val() + ']')
+        )
+        .send(FA);
+      $('button').html('Update');
+      refreshItems();
     }
     connect();
   </script>
