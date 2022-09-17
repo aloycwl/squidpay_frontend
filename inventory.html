@@ -21,9 +21,29 @@
     <input id="iCount" placeholder="E.g. 500,100,70,10000,750" /><br />
     <button>Update</button>
     <hr />
+    Display of item (with attachment to json)
   </body>
   <script>
-    offset = 0;
-    CA1 = '0x151C196e89F479E6542388c0e7a43E036e8c384f';
+    async function connect() {
+      await load(
+        [
+          {
+            inputs: [u2, u2],
+            name: 'update',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [],
+            name: 'display',
+            outputs: [u2],
+            stateMutability: 'view',
+            type: 'function',
+          },
+        ],
+        '0x151C196e89F479E6542388c0e7a43E036e8c384f'
+      );
+    }
   </script>
 </html>
