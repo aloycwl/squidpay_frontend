@@ -36,18 +36,13 @@
     };
     CHAIN = 4;
     CS = '';
+    CA1 = '0x151C196e89F479E6542388c0e7a43E036e8c384f';
     WB =
       'https://eth-rinkeby.alchemyapi.io/v2/xneL9EV87zUlVocEVcyDT5tqp4LZE0Fy';
     async function connect() {
-      await load(
+      web3a = new Web3(WB);
+      contracta = new web3a.eth.Contract(
         [
-          {
-            inputs: [u2, u2],
-            name: 'update',
-            outputs: [],
-            stateMutability: 'nonpayable',
-            type: 'function',
-          },
           {
             inputs: [],
             name: 'display',
@@ -68,6 +63,18 @@
     }
     async function update() {
       $('button').html('Updating...');
+      await load(
+        [
+          {
+            inputs: [u2, u2],
+            name: 'update',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+        ],
+        '0x151C196e89F479E6542388c0e7a43E036e8c384f'
+      );
       await contract.methods
         .update(
           JSON.parse('[' + $('#iItem').val() + ']'),
