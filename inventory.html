@@ -39,7 +39,7 @@
     CA1 = '0x151C196e89F479E6542388c0e7a43E036e8c384f';
     WB =
       'https://eth-rinkeby.alchemyapi.io/v2/xneL9EV87zUlVocEVcyDT5tqp4LZE0Fy';
-    async function connect() {
+    async function refreshItems() {
       web3a = new Web3(WB);
       contracta = new web3a.eth.Contract(
         [
@@ -51,11 +51,8 @@
             type: 'function',
           },
         ],
-        '0x151C196e89F479E6542388c0e7a43E036e8c384f'
+        CA1
       );
-      refreshItems();
-    }
-    async function refreshItems() {
       $('#items').html('');
       count = await contracta.methods.display().call();
       for (i = 1; i < count.length; i++)
@@ -73,7 +70,7 @@
             type: 'function',
           },
         ],
-        '0x151C196e89F479E6542388c0e7a43E036e8c384f'
+        CA1
       );
       await contract.methods
         .update(
@@ -84,6 +81,6 @@
       $('button').html('Update');
       refreshItems();
     }
-    connect();
+    refreshItems();
   </script>
 </html>
